@@ -72,15 +72,25 @@ const searchMovie = async (req, res) => {
 const movieDetail = async (req, res) => {
   try {
     const { id } = req.params;
+    const movieDetail = await Movie.findByPk(id);
     const stringQuery = `
-    select  * from movies
-    inner join cinema_movies on movies.id = cinema_movies.movieId
-    inner join cinemas on cinemas.id = cinema_movies.cinemaId
-    inner join cineplexes on cineplexes.id = cinemas.cineplexId
-    where movies.id = 1;
+      select * from cinemas
+      inner join cinema_movies
+      on cinemas.id = cinema_movies.cinemaId
+      inner join showtimes
+      on cinemas.id = showtimes.cinemaId
+      where cinema_movies.movieId = 1;
     `;
-    const [movieDetail] = await Movie.sequelize.query(stringQuery);
-    res.status(200).send(movieDetail);
+    const [data] = await Movie.sequelize.query(stringQuery);
+
+    // const newData = data.map((item) => ({
+    //   cinemaName: item.name,
+    //   address: item.address,
+    //   image: item.image,
+    //   showtimeList: item.startTime,
+    // }));
+
+    res.status(200).send({ movieDetail, cinemaList: data });
   } catch (error) {
     res.status(500).send(error);
   }
