@@ -48,8 +48,55 @@ const getAllMoviePagination = async (req, res) => {
     res.status(500).send(error);
   }
 };
+const searchMovie = async (req, res) => {
+  try {
+    const { name, startDate } = req.query;
+    const movieListSearch = await Movie.findAll({
+      where: {
+        [Op.and]: {
+          name: {
+            [Op.like]: `${name}%`,
+          },
+          startDate: {
+            [Op.like]: `${startDate}`,
+          },
+        },
+      },
+    });
+    res.status(200).send(movieListSearch);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const movieDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const stringQuery = `
+    select  * from movies
+    inner join cinema_movies on movies.id = cinema_movies.movieId
+    inner join cinemas on cinemas.id = cinema_movies.cinemaId
+    inner join cineplexes on cineplexes.id = cinemas.cineplexId
+    where movies.id = 1;
+    `;
+    const [movieDetail] = await Movie.sequelize.query(stringQuery);
+    res.status(200).send(movieDetail);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const createMovie = async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
 module.exports = {
   getAllMovie,
   getAllMoviePagination,
+  searchMovie,
+  movieDetail,
+  createMovie,
 };
