@@ -8,6 +8,7 @@ const {
 	createMovie,
 	removeMovie,
 	updateMovie,
+	searchMovieByName,
 } = require("../controllers/movie.controller");
 const {
 	authentication,
@@ -50,6 +51,7 @@ movieRouter.put(
 	uploadImageSingle("poster"),
 	updateMovie,
 );
+movieRouter.get("/search-movie-by-name", searchMovieByName);
 
 module.exports = {
 	movieRouter,

@@ -1,5 +1,6 @@
 const { Movie, sequelize } = require("../models");
 const { Op } = require("sequelize");
+const { URL } = require("../utils/constant");
 
 const getAllMovie = async (req, res) => {
 	try {
@@ -14,23 +15,26 @@ const getAllMoviePagination = async (req, res) => {
 		let page = parseInt(req.query.page);
 		let limit = parseInt(req.query.limit);
 		const totalMovie = await Movie.count();
+
+		let totalPage = Math.floor(totalMovie / limit);
+		const mod = totalMovie % limit;
+		if (mod != 0) {
+			totalPage = totalPage + 1;
+		}
 		if (page < 1) {
 			page = 1;
 		}
-		if (page > totalMovie) {
-			page = totalMovie;
+		if (page > totalPage) {
+			page = totalPage;
 		}
 		if (limit < 1) {
 			limit = 1;
 		}
-		const startPage = (page - 1) * limit;
-
-		let totalPage = Math.floor(totalMovie / limit);
-		const mod = totalMovie % limit;
-
-		if (mod != 0) {
-			totalPage = totalPage + 1;
+		if (limit > totalMovie) {
+			limit = totalMovies;
 		}
+
+		const startPage = (page - 1) * limit;
 
 		const movieList = await Movie.findAll({
 			limit: limit,
@@ -64,6 +68,21 @@ const searchMovie = async (req, res) => {
 			},
 		});
 		res.status(200).send(movieListSearch);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+};
+const searchMovieByName = async (req, res) => {
+	try {
+		const { movieName } = req.query;
+		const movieList = await Movie.findAll({
+			where: {
+				movieName: {
+					[Op.like]: `${movieName}%`,
+				},
+			},
+		});
+		res.status(200).send(movieList);
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -103,7 +122,7 @@ const createMovie = async (req, res) => {
 		evaluate = parseInt(evaluate);
 
 		const { file } = req;
-		const poster = `http://localhost:9000/${file.path}`;
+		const poster = `${URL}${file.path}`;
 		const newMovie = await Movie.create({
 			movieName,
 			startDate,
@@ -121,6 +140,7 @@ const createMovie = async (req, res) => {
 const removeMovie = async (req, res) => {
 	try {
 		const { id } = req.params;
+		const { detailInfo } = req;
 		await Movie.destroy({
 			where: {
 				id,
@@ -128,6 +148,7 @@ const removeMovie = async (req, res) => {
 		});
 		res.status(200).send({
 			message: "Xóa movie thành công",
+			detailInfo,
 		});
 	} catch (error) {
 		res.status(500).send(error);
@@ -141,7 +162,7 @@ const updateMovie = async (req, res) => {
 		time = parseInt(time);
 		evaluate = parseInt(evaluate);
 		const { file } = req;
-		const poster = `http://localhost:9000/${file.path}`;
+		const poster = `${URL}${file.path}`;
 		await Movie.update(
 			{ movieName, startDate, time, evaluate, poster, trailer },
 			{
@@ -153,7 +174,6 @@ const updateMovie = async (req, res) => {
 
 		res.status(200).send({
 			message: "chỉnh sủa thông tin thành công",
-			startDate,
 		});
 	} catch (error) {
 		res.status(500).send(error);
@@ -168,4 +188,5 @@ module.exports = {
 	createMovie,
 	removeMovie,
 	updateMovie,
+	searchMovieByName,
 };

@@ -1,6 +1,7 @@
 const { User, sequelize } = require("../models");
 const { Op } = require("sequelize");
 const bcryptjs = require("bcryptjs");
+const { URL } = require("../utils/constant");
 
 const getAllUser = async (req, res) => {
 	try {
@@ -28,7 +29,6 @@ const getAllUserByPagination = async (req, res) => {
 		let page = parseInt(req.query.page);
 		let userLimitInPage = parseInt(req.query.userLimitInPage);
 
-		const startPage = (page - 1) * userLimitInPage;
 		const totalUser = await User.count();
 
 		let totalPage = Math.floor(totalUser / userLimitInPage);
@@ -47,6 +47,10 @@ const getAllUserByPagination = async (req, res) => {
 		if (userLimitInPage < 1) {
 			userLimitInPage = 1;
 		}
+		if (userLimitInPage > totalUser) {
+			userLimitInPage = totalUser;
+		}
+		const startPage = (page - 1) * userLimitInPage;
 
 		const userList = await User.findAll({
 			offset: startPage,
@@ -169,7 +173,7 @@ const uploadAvatar = async (req, res) => {
 	try {
 		const { file, user } = req;
 
-		const urlImage = `http://localhost:9000/${file.path}`;
+		const urlImage = `${URL}${file.path}`;
 		const userUploadImage = await User.findByPk(user.id);
 
 		userUploadImage.avatar = urlImage;
@@ -209,8 +213,6 @@ const searchUserByNamePagination = async (req, res) => {
 		let page = parseInt(req.query.page);
 		let limit = parseInt(req.query.limit);
 
-		const startPage = (page - 1) * limit;
-
 		const totalUser = await User.count({
 			where: {
 				userName: {
@@ -235,6 +237,10 @@ const searchUserByNamePagination = async (req, res) => {
 		if (limit < 1) {
 			limit = 1;
 		}
+		if (limit > totalUser) {
+			limit = totalUser;
+		}
+		const startPage = (page - 1) * limit;
 
 		const userListSearch = await User.findAll({
 			where: {

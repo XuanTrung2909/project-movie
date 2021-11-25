@@ -26,15 +26,11 @@ const {
 
 const userRouter = express.Router();
 
-userRouter.get("/get-all-user", authentication, getAllUser);
+userRouter.get("/get-all-user", getAllUser);
 
 userRouter.get("/userId=:id", authentication, checkExist(User), getUserDetail);
 
-userRouter.get(
-	"/get-all-user-by-pagination",
-	authentication,
-	getAllUserByPagination,
-);
+userRouter.get("/get-all-user-by-pagination", getAllUserByPagination);
 
 userRouter.delete(
 	"/remove-user-id=:id",
@@ -72,13 +68,9 @@ userRouter.post(
 	uploadAvatar,
 );
 
-userRouter.get("/search-user", authentication, searchUserByName);
+userRouter.get("/search-user", searchUserByName);
 
-userRouter.get(
-	"/search-user-pagination",
-	authentication,
-	searchUserByNamePagination,
-);
+userRouter.get("/search-user-pagination", searchUserByNamePagination);
 
 module.exports = {
 	userRouter,

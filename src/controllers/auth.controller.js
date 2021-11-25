@@ -4,12 +4,12 @@ const { tokenGenerate } = require("../utils/token.util");
 
 const signUp = async (req, res) => {
 	try {
-		const { name, email, fullName, phone, password } = req.body;
+		const { userName, email, fullName, phone, password } = req.body;
 
 		const salt = bcryptjs.genSaltSync(10);
 		const hashPassword = bcryptjs.hashSync(password, salt);
 		const newUser = await User.create({
-			name,
+			userName,
 			email,
 			fullName,
 			phone,

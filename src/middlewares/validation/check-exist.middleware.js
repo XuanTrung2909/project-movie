@@ -2,10 +2,10 @@ const { User } = require("../../models");
 
 const checkExistForCreatUser = async (req, res, next) => {
 	try {
-		const { name, email } = req.body;
+		const { userName, email } = req.body;
 		const isName = await User.findOne({
 			where: {
-				name,
+				userName,
 			},
 		});
 		const isEmail = await User.findOne({
