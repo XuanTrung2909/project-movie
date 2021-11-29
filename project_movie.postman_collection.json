@@ -1,0 +1,1115 @@
+{
+	"info": {
+		"_postman_id": "06d3392d-464a-49a3-b1b8-6a0e283ebd85",
+		"name": "project_movie",
+		"description": "1/ Đặt Environments: \n   url: http://localhost:9000/api/v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get-all-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/get-all-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"get-all-user"
+							]
+						},
+						"description": "*   Api trả về thông tin danh sách user\n*   Dữ liệu trả về: Danh sách user có trong db"
+					},
+					"response": []
+				},
+				{
+					"name": "get-user-detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/userId=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"userId=1"
+							]
+						},
+						"description": "- Api lấy thông tin user theo id của user, với id được truyền lên từ client sẽ lấy ra thông tin của user tương ứng với id đó.\n\n-Dùng middleware để kiểm tra đăng nhập:\n\n  + Chưa đăng nhập: trả về message: \"bạn chưa đang nhập\".\n\n  + Đã đăng nhập: thực hiện bước tiếp\n\n- Dùng middleware kiểm tra tồn tại của user qua id từ client gửi: \n\n  + Không tồn tại: trả về message: \"Không tồn tại\"\n\n  + Có tồn tại: thực hiện lấy thông tin của user.\n\n- Thông tin trả về: thông tin chi tiết của user"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-user-by-pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/get-all-user-by-pagination?page=1&userLimitInPage=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"get-all-user-by-pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "userLimitInPage",
+									"value": "2"
+								}
+							]
+						},
+						"description": "*   Lấy danh sách tất cả user và được phân trang thông qua các Query từ client gửi lên.\n*   Kiểm tra query từ client gửi:\n    *   Nếu page < 1 thì set page = 1\n    *   Nếu page > totalPage thì set page = totalPage\n    *   Nếu userLimitInPage < 0 thì set userLimitInPage = 1.\n    *   Nếu userLimitInPage > totalUser thì set userLimitInPage = totalUser\n*   api trả về thông tin:\n    *   Danh sách user đã được phân trang.\n    *   totalPage: Tổng số trang để show user\n    *   totalUser: tổng số user.\n    *   page: trang đang show user\n    *   userLimitInPage: Số user được show trong 1 trang"
+					},
+					"response": []
+				},
+				{
+					"name": "remove-user-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/user/remove-user-id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"remove-user-id=1"
+							]
+						},
+						"description": "- api xóa user trong db dựa trên id được gửi lên từ client.\n\n- Dùng middleware để kiểm tra đăng nhập:\n\n  + Chưa đăng nhập: trả về message: \"Bạn chưa đăng nhập\"\n\n  + Đã đăng nhập: thực hiện bước tiếp.\n\n- Dùng middleware để xác thực quyền bằng token từ clien gửi lên\n\n  + Không phải quyền \"ADMIN\": trả về message: \"không có quyền thực hiện\".\n\n  + Quyền \"ADMIN\": thực hiện xóa user.\n\n- Xóa thành công thì trả về thông tin: \n\n  + message: \"Xóa thành công\"\n\n  + thông tin của user đã xóa"
+					},
+					"response": []
+				},
+				{
+					"name": "update-user-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token clien",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"fullName\": \"admin\",\r\n    \"phone\": \"9999999999\",\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/update-user-id=5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"update-user-id=5"
+							]
+						},
+						"description": "- API dùng để chỉnh sửa thông tin cho user. Email không thể thay đổi do là trường key để đăng nhập.\n\n- Dùng middleware để kiểm tra đăng nhập:\n\n  + Chưa đăng nhập: trả về message: \"Bạn chưa đăng nhập\".\n\n  + Đã đăng nhập: thực hiện bước tiếp.\n\n- Dùng middleware để kiểm tra tồn tại của user dựa trên id:\n\n  + không tồn tại: trả về message: \"không tồn tại\".\n\n  + có tồn tại: thực hiện bước tiếp.\n\n- Chỉnh sửa thông tin của user:\n\n  + Nếu user có quyền \"ADMIN\": được chỉnh sửa thông tin name, phon, được quyền thay đổi role của user.\n\n  + Nếu user không có quyền \"ADMIN\" thì được chỉnh sửa name, phone.\n\n- Đổi password được thực hiện bằng api khác\n\n- Thông tin trả về: message: \"cập nhật thông tin thành công\""
+					},
+					"response": []
+				},
+				{
+					"name": "create-user-by-admin",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"fullName\": \"admin\",\r\n    \"phone\": \"0123456789\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/create-user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-user"
+							]
+						},
+						"description": "* Api dùng để tạo 1 user mới và chỉ quyền \"ADMIN\" có quyền gọi API này.\n\n- Dùng middleware để kiểm tra đã đăng nhập:\n\n  + Chưa đăng nhập: trả về message: \"email đã tồn tại\"\n\n  + Đã đăng nhập: thực hiện bước tiếp.\n\n- Dùng middleware để xác thực quyền bằng token từ clien gửi lên\n\n  + Không phải quyền \"ADMIN\": trả về message: \"không có quyền thực hiện\".\n\n  + Quyền \"ADMIN\": thực hiện bước tiếp.\n\n- Dùng middleware để check email đã tồn tại hay chưa:\n\n  + Đã tồn tại: trả về message: \"email đã tồn tại\".\n\n  + Chưa tồn tại: thực hiện tạo user mới\n\n- Thông tin trả về: thông tin của user mới được tạo"
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passwordOld\": \"1234567\",\r\n    \"passwordNew\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/change-password-userId=5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"change-password-userId=5"
+							]
+						},
+						"description": "- API dùng để user tự đổi mật khẩu của mình.\n\n- Dùng middleware để kiểm tra đăng nhập:\n\n  + Chưa đăng nhập: trả về message: \"Bạn chưa đăng nhập\".\n\n  + Đã đăng nhập: Thực hiện bước tiếp.\n\n- Dùng middleware để kiểm tra tồn tại của User:\n\n  + Không tồn tại: Trả về message \"Không tồn tại\".\n\n  + Có tồn tại: Thực hiện thay đổi mật khẩu cho user.\n\n- Thay đổi password. Kiểm tra passwordOld gửi lên có trùng với password của user không:\n\n  + Nếu không trùng: trả về message: \"Mật khẩu cũ không đúng\".\n\n  + Nếu trùng: Thực hiện đổi password và trả về message \"Mật khẩu đã được đổi\""
+					},
+					"response": []
+				},
+				{
+					"name": "upload-avatar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/upload-avatar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"upload-avatar"
+							]
+						},
+						"description": "- API dùng để thay đổi avatar của user.\n\n- Dùng middleware để kiểm tra đăng nhập:\n\n  + Chưa đăng nhập: Trả về message: \"Bạn chưa đăng nhập\".\n\n  + Đã đăng nhập: Thực hiện upload hình ảnh lên storage.\n\n- Upload hình ảnh lên storage, kiểm tra định dạng của hình phải đúng mới cho upload.\n\n- cập nhật link vào user.avatar và save vào db.\n\nThông tin Dữ liệu: \n\n  + message: \"Avatar đã được thay đổi\".\n\n  + Thông tin user sau khi cạp nhật db"
+					},
+					"response": []
+				},
+				{
+					"name": "search-user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/search-user?userName=trung",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"search-user"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "trung"
+								}
+							]
+						},
+						"description": "*   API dùng để tìm kiếm người dùng.\n*   thông tin trả về: Danh sách user có tên gần gống với query được gửi lên"
+					},
+					"response": []
+				},
+				{
+					"name": "search-user-pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/search-user-pagination?userName=thuy&page=1&limit=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"search-user-pagination"
+							],
+							"query": [
+								{
+									"key": "userName",
+									"value": "thuy"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "*   API dùng để tìm kiếm người dùng.\n*   Kiểm tra query từ client gửi:\n    *   Nếu page < 1 thì set page = 1\n    *   Nếu page > totalPage thì set page = totalPage\n    *   Nếu limit < 0 thì set limit = 1.\n    *   Nếu limit > totalUser thì set limit = totalUser\n*   Thông tin trả về:\n    *   page: trang đang show user.\n    *   limit: số user hiện trên 1 trang.\n    *   totalUser: Tổng user được search ra.\n    *   totalPage: Số trang show user\n    *   Danh sách user được search ra."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/sign-in",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						},
+						"description": "- Api dùng để đăng nhập.\n\n- Kiểm tra email:\n\n  + nếu không tồn tại thì trả về message: \"Tài khoản không tồn tại\".\n\n  + Email tồn tại: thực hiện kiểm tra password.\n\n- Kiểm tra paswrod: Dùng thư viện bcryptjs để kiểm tra\n\n  + false: trả về message: \"Mật khẩu không đúng\".\n\n  + true: Trả về thông tin\n\n    - message: \"Đăng nhập thành công\".\n\n    - token"
+					},
+					"response": []
+				},
+				{
+					"name": "sign-up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"client\",\r\n    \"email\": \"client@gmail.com\",\r\n    \"fullName\": \"client\",\r\n    \"phone\": \"9999999999\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/sign-up",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						},
+						"description": "- Api dùng để đăng ký 1 user mới cho người dùng client với role mặc định là CLIENT\n\n- Dữ liệu từ client gửi lên sẽ được kiểm tra trường email đã được tồn tại hay chưa:\n\n  + Nếu đã tồn tại thì trả về 1 message: \"Email đã tồn tại\".\n\n  + Nếu chưa tồn tại thì tiến hành import data và trả về dữ liệu vừa import\n\n- api trả về dữ liệu: \n\n  + message: \"Đăng Ký Tài Khoản Thành Công\"\n\n  + Thông tin user được đăng ký thành công"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movie",
+			"item": [
+				{
+					"name": "get-all-movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movie/get-all-movie",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"get-all-movie"
+							]
+						},
+						"description": "- Api trả về thông tin danh sách movie\n\n- Dữ liệu trả về: Danh sách movie có trong db"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-movie-pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movie/get-all-movie-pagination?page=1&limit=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"get-all-movie-pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						},
+						"description": "- Lấy danh sách tất cả movie và được phân trang thông qua các Query từ client gửi lên.\n\n- Kiểm tra query từ client gửi:\n\n  + Nếu page < 1 thì set page = 1\n\n  + Nếu page > totalPage thì set page = totalPage\n\n  + Nếu limit < 0 thì set limit = 1.\n\n  + Nếu limit > totalMovie thì set limit = totalMovie\n\n- api trả về thông tin:\n\n  + Danh sách movie đã được phân trang.\n\n  + totalPage: Tổng số trang để show movie\n\n  + totalMovie: tổng số movie.\n\n  + page: trang đang show movie\n\n  + limit: Số movie được show trong 1 trang"
+					},
+					"response": []
+				},
+				{
+					"name": "search-movie-by-name&startDate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movie/search-movie?movieName=o&startDate=2021-11-30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"search-movie"
+							],
+							"query": [
+								{
+									"key": "movieName",
+									"value": "o"
+								},
+								{
+									"key": "startDate",
+									"value": "2021-11-30"
+								}
+							]
+						},
+						"description": "- API dùng để tìm kiếm movie bằng movieName và startDate.\n\n- Thông tin được trả về: Danh sách movie được tìm kiếm"
+					},
+					"response": []
+				},
+				{
+					"name": "get-movie-detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movie/movieId=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"movieId=1"
+							]
+						},
+						"description": "- API dùng để lấy thông tin chi tiết về user.\n\n- Thông tin trả về:\n\n  + Thông tin chi tiết của user.\n\n  + Thông tin rạp chiếu và giờ chiếu của movie."
+					},
+					"response": []
+				},
+				{
+					"name": "create-movie",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token clien",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "poster",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece2.jpg"
+								},
+								{
+									"key": "movieName",
+									"value": "Naturo",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2021-12-05",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "time",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "evaluate",
+									"value": "2",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "trailer",
+									"value": "12345679",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/movie/create-movie",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"create-movie"
+							]
+						},
+						"description": "- API dùng để add 1 movie mới vào hệ thống.\n\n- Dùng Middleware để kiểm tra đã đăng nhập chưa:\n\n  + Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n\n  + Đã đăng nhập thì thực hiện tiếp.\n\n- Kiểm tra quyền ADMIN:\n\n  + Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n\n  + Quyền admin thì thực hiện bước tiếp.\n\n- Upload poster của movie.\n\n- Thực hiện thêm movie vào db.\n\n- Dữ liệu trả về: Thông tin movie mới được thêm vào db."
+					},
+					"response": []
+				},
+				{
+					"name": "remove-movie-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token clien",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/movie/remove-movie-id=4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"remove-movie-id=4"
+							]
+						},
+						"description": "- API dùng để remove 1 movie.\n\n- Dùng Middleware để kiểm tra đã đăng nhập chưa:\n\n  + Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n\n  + Đã đăng nhập thì thực hiện tiếp.\n\n- Kiểm tra quyền ADMIN:\n\n  + Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n\n  + Quyền admin thì thực hiện xóa movie\n\n- Thông tin trả về:\n\n  + message: \"Xóa movie thành công\".\n\n  + Thông tin movie vừa được xóa."
+					},
+					"response": []
+				},
+				{
+					"name": "update-movie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "time",
+									"value": "3",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "movieName",
+									"value": "luffy",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "poster",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece2.jpg"
+								},
+								{
+									"key": "evaluate",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2021-12-30",
+									"type": "text"
+								},
+								{
+									"key": "trailer",
+									"value": "123456790",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/movie/update-movie-id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"update-movie-id=1"
+							]
+						},
+						"description": "- API dùng để chỉnh sửa 1 movie.\n\n- Dùng Middleware để kiểm tra đã đăng nhập chưa:\n\n  + Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n\n  + Đã đăng nhập thì thực hiện tiếp.\n\n- Kiểm tra quyền ADMIN:\n\n  + Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n\n  + Quyền admin thì thực hiện checkexist movie\n\n- Check Exist movie by id\n\n  + Nếu không tồn tại: trả về message \"không tồn tại\".\n\n  + Nếu tồn tại: thực hiện upload image và chỉnh sửa thông tin của movie\n\n- Thông tin trả về:\n\n  + message: \"movie đã được chỉnh sửa thành công\"."
+					},
+					"response": []
+				},
+				{
+					"name": "search-movie-by-name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/movie/search-movie-by-name?movieName=One",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"movie",
+								"search-movie-by-name"
+							],
+							"query": [
+								{
+									"key": "movieName",
+									"value": "One"
+								}
+							]
+						},
+						"description": "- API search movie bằng movieName.\n\n- Thông tin trả về: danh sách movie có movieName gần giống với từ search."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cineplex",
+			"item": [
+				{
+					"name": "get-all-cineplex",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cineplex/get-all-cineplex",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cineplex",
+								"get-all-cineplex"
+							]
+						},
+						"description": "- API lấy danh sách cineplex có trong db.\n\n- Thông tin trả về: danh sách cinelex"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-cineplex-by-pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cineplex/get-all-cineplex-by-pagination?page=1&pageLimit=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cineplex",
+								"get-all-cineplex-by-pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageLimit",
+									"value": "1"
+								}
+							]
+						},
+						"description": "- Lấy danh sách tất cả Cineplex và được phân trang thông qua các Query từ client gửi lên.\n\n- Kiểm tra query từ client gửi:\n\n  + Nếu page < 1 thì set page = 1\n\n  + Nếu page > totalPage thì set page = totalPage\n\n  + Nếu limit < 0 thì set limit = 1.\n  \n  + Nếu limit > totalMovie thì set limit = totalMovie\n\n- api trả về thông tin:\n\n  + Danh sách cineplex đã được phân trang.\n\n  + totalPage: Tổng số trang để show cineplex\n\n  + totalCineplex: tổng số cineplex.\n\n  + page: trang đang show cineplex\n\n  + limit: Số cineplex được show trong 1 trang"
+					},
+					"response": []
+				},
+				{
+					"name": "create-cineplex",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece1.jpg"
+								},
+								{
+									"key": "cineplexName",
+									"value": "Lotte",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/cineplex/create-cineplex",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cineplex",
+								"create-cineplex"
+							]
+						},
+						"description": "*   API dùng để add 1 cineplex mới vào hệ thống.\n*   Dùng Middleware để kiểm tra đã đăng nhập chưa:\n    *   Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n    *   Đã đăng nhập thì thực hiện tiếp.\n*   Kiểm tra quyền ADMIN:\n    *   Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n    *   Quyền admin thì thực hiện bước tiếp.\n*   Upload logo của cineplex.\n*   Thực hiện thêm cineplex vào db.\n*   Dữ liệu trả về: Thông tin cineplex mới được thêm vào db."
+					},
+					"response": []
+				},
+				{
+					"name": "remove-cineplex",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/cineplex/remove-cineplex-id=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cineplex",
+								"remove-cineplex-id=1"
+							]
+						},
+						"description": "*   API dùng để remove 1 cineplex bằng id.\n*   Dùng Middleware để kiểm tra đã đăng nhập chưa:\n    *   Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n    *   Đã đăng nhập thì thực hiện tiếp.\n*   Kiểm tra quyền ADMIN:\n    *   Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n    *   Quyền admin thì thực hiện xóa cineplex.\n*   Thông tin trả về:\n    *   message: \"xóa cineplex thành công\".\n    *   Thông tin của cineplex vừa xóa."
+					},
+					"response": []
+				},
+				{
+					"name": "update-cineplex",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece2.jpg"
+								},
+								{
+									"key": "cineplexName",
+									"value": "Lotte",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/cineplex/update-cineplex-id=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cineplex",
+								"update-cineplex-id=2"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "*   API dùng để chỉnh sửa thông tin 1 cineplex\n*   Dùng Middleware để kiểm tra đã đăng nhập chưa:\n    *   Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n    *   Đã đăng nhập thì thực hiện tiếp.\n*   Kiểm tra quyền ADMIN:\n    *   Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n    *   Quyền admin thì thực hiện upload image và chỉnh sửa thông tin của cineplex\n*   Thông tin trả về:\n    *   message: \"Chỉnh sửa thông tin cineplex thành công\"."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cinema",
+			"item": [
+				{
+					"name": "get-all-cinema",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cinema/get-all-cinema",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cinema",
+								"get-all-cinema"
+							]
+						},
+						"description": "*   API dùng để lấy toàn bộ danh sách cinema trong db."
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-cinema-pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cinema/get-all-cinema-pagination?page=1&limit=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cinema",
+								"get-all-cinema-pagination"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "*   Lấy danh sách tất cả Cinema và được phân trang thông qua các Query từ client gửi lên.\n*   Kiểm tra query từ client gửi:\n    *   Nếu page < 1 thì set page = 1\n    *   Nếu page > totalPage thì set page = totalPage\n    *   Nếu limit < 0 thì set limit = 1.\n    *   Nếu limit > totalMovie thì set limit = totalMovie\n*   api trả về thông tin:\n    *   Danh sách cinema đã được phân trang.\n    *   totalPage: Tổng số trang để show cinema\n    *   totalCinema: tổng số cinema.\n    *   page: trang đang show cinema\n    *   limit: Số cinema được show trong 1 trang"
+					},
+					"response": []
+				},
+				{
+					"name": "search-cinema-by-name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cinema/search-cinema-by-cinemaName?cinemaName=bhd",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cinema",
+								"search-cinema-by-cinemaName"
+							],
+							"query": [
+								{
+									"key": "cinemaName",
+									"value": "bhd"
+								}
+							]
+						},
+						"description": "*   API dùng để tìm cinema bằng cinemaName được gửi từ client.\n*   Thông tin trả về: Danh sách cinema được tìm kiếm."
+					},
+					"response": []
+				},
+				{
+					"name": "create-cinema",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cinemaImg",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece1.jpg"
+								},
+								{
+									"key": "cinemaName",
+									"value": "BHD - Q1",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Số 1 Đinh Công Tránh, Quận 1",
+									"type": "text"
+								},
+								{
+									"key": "cineplexId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/cinema/create-cinema",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cinema",
+								"create-cinema"
+							]
+						},
+						"description": "*   API dùng để add 1 cinema mới vào hệ thống.\n*   Dùng Middleware để kiểm tra đã đăng nhập chưa:\n    *   Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n    *   Đã đăng nhập thì thực hiện tiếp.\n*   Kiểm tra quyền ADMIN:\n    *   Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n    *   Quyền admin thì thực hiện bước tiếp.\n*   Upload image của cinema.\n*   Thực hiện thêm cinema vào db.\n*   Dữ liệu trả về: Thông tin cinema mới được thêm vào db."
+					},
+					"response": []
+				},
+				{
+					"name": "remove-cinema",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/cinema/remove-cinema-id=4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cinema",
+								"remove-cinema-id=4"
+							]
+						},
+						"description": "*   API dùng để remove 1 cinema bằng id.\n*   Dùng Middleware để kiểm tra đã đăng nhập chưa:\n    *   Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n    *   Đã đăng nhập thì thực hiện tiếp.\n*   Kiểm tra quyền ADMIN:\n    *   Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n    *   Quyền admin thì thực hiện xóa cinema.\n*   Thông tin trả về:\n    *   message: \"xóa cinema thành công\".\n    *   Thông tin của cinema vừa xóa."
+					},
+					"response": []
+				},
+				{
+					"name": "update-cinema",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywibmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJwaG9uZSI6IjAxMjM0NTY3ODkiLCJyb2xlIjoiQURNSU4iLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjUzNCwiZXhwIjoxNjUwMDE4NTM0fQ.R3p7PPX-ZN7WFurDZrSvesH7mBmM_6JqsKoTvsBc3gE",
+								"description": "token admin",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibmFtZSI6ImNsaWVudCIsImVtYWlsIjoiY2xpZW50QGdtYWlsLmNvbSIsInBob25lIjoiMDEyMzQ1Njc4OSIsInJvbGUiOiJDTElFTlQiLCJhdmF0YXIiOm51bGwsImlhdCI6MTYzNDQ2NjYzNiwiZXhwIjoxNjUwMDE4NjM2fQ.Bdw88zKGqk1wwDXqJTDRcGXiyd3V22_k5aWgu3Z48EI",
+								"description": "token client",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cinemaImg",
+									"type": "file",
+									"src": "/C:/Users/XuanTrung/Documents/OnePiece2.jpg"
+								},
+								{
+									"key": "cinemaName",
+									"value": "BHD - laskjdfl",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "Q1",
+									"type": "text"
+								},
+								{
+									"key": "cineplexId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/cinema/update-cinema-id=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cinema",
+								"update-cinema-id=3"
+							]
+						},
+						"description": "*   API dùng để chỉnh sửa thông tin 1 cinema\n*   Dùng Middleware để kiểm tra đã đăng nhập chưa:\n    *   Nếu chưa đăng nhập trả về message: \"Bạn chưa đăng nhập\".\n    *   Đã đăng nhập thì thực hiện tiếp.\n*   Kiểm tra quyền ADMIN:\n    *   Không phải quyền admin: trả về message \"Bạn không có quyền thực hiện\".\n    *   Quyền admin thì thực hiện upload image và chỉnh sửa thông tin của cinema\n*   Thông tin trả về:\n    *   message: \"Chỉnh sửa thông tin cinema thành công\"."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
